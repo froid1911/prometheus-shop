@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PrometheusService } from './prometheus.service';
+import { MatDialog } from '@angular/material';
+import { TxReceivedComponent } from '../dialogs/tx-received/tx-received.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
 
@@ -21,7 +23,7 @@ export class AppComponent implements OnInit {
   disableRipples: boolean;
   price: number;
 
-  constructor(private prometheus: PrometheusService) {
+  constructor(private prometheus: PrometheusService, private dialog: MatDialog) {
 
   }
 
@@ -48,6 +50,13 @@ export class AppComponent implements OnInit {
     this.displayQRCode = true;
     this.generateQRCode(this.price);
     this.disableRipples = true;
+    this.prometheus.subscribeBalance().then((data) => {
+      this.dialog.open(TxReceivedComponent).afterClosed().subscribe(() => {
+        this.displayQRCode = false;
+        this.disableRipples = false;
+      });
+
+    });
 
   }
 

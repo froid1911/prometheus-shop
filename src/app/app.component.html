@@ -1,9 +1,11 @@
-<mat-selection-list #shoes [disabled]="disableRipples">
-    <h3 mat-subheader>Shop</h3>
-    <mat-list-option *ngFor="let item of shopItems" [value]="item.price">
-        {{item.name}}
-    </mat-list-option>
-</mat-selection-list>
-<button mat-raised-button color="primary" (click)="startPayment()" [disabled]="disableRipples">Pay {{ getPrice(shoes) }} Promis</button>
-<div id="qr-code">
-</div>
+<mat-card>
+    <mat-selection-list #shoes [disabled]="disableRipples">
+        <h3 mat-subheader>Shop</h3>
+        <mat-list-option *ngFor="let item of shopItems" [value]="item.price">
+            {{item.name}}
+        </mat-list-option>
+    </mat-selection-list>
+    <button mat-raised-button color="primary" (click)="startPayment()" [disabled]="disableRipples">Pay {{ getPrice(shoes) }} Promis</button>
+    <div id="qr-code">
+    </div>
+</mat-card>
