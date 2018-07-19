@@ -11,15 +11,15 @@ import { TxReceivedComponent } from '../dialogs/tx-received/tx-received.componen
 export class AppComponent implements OnInit {
 
   shopItems = [
-    { name: 'Promi P8 Turbo', selected: false, price: 1000 },
-    { name: 'Prometheus Schlüsselanhänger', selected: true, price: 1 },
-    { name: 'Prometheus P8 Bambini Edition', selected: false, price: 10 }
+    { name: 'Audi R8 Turbo', selected: false, price: 1000 },
+    { name: 'Audi R8 Schlüsselanhänger', selected: true, price: 1 },
+    { name: 'Audi R8 Bambini Edition', selected: false, price: 10 }
   ];
 
   shopItemsSelected;
 
   title = 'app';
-  displayQRCode: boolean;
+  hideQRCode: boolean;
   disableRipples: boolean;
   price: number;
 
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayQRCode = false;
+    this.hideQRCode = true;
     this.disableRipples = false;
   }
 
@@ -47,12 +47,12 @@ export class AppComponent implements OnInit {
 
   startPayment() {
     this.prometheus.subscribeBalance().then(this.finishPayment);
-    this.displayQRCode = true;
+    this.hideQRCode = false;
     this.generateQRCode(this.price);
     this.disableRipples = true;
     this.prometheus.subscribeBalance().then((data) => {
       this.dialog.open(TxReceivedComponent).afterClosed().subscribe(() => {
-        this.displayQRCode = false;
+        this.hideQRCode = true;
         this.disableRipples = false;
       });
 
